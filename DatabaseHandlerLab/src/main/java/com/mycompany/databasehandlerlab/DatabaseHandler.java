@@ -7,8 +7,9 @@ NOTES:
 ================================
 - Please change the file path of the database inside the static void method to the file path of the database in your device.
 - The program is a user-input program. 
-- In my case, some methods will output a [SQLITE_BUSY] exception if DBeaver is open while running the program. If you get the same error,
+- In my case, some methods will output a [SQLITE_BUSY] exception if DBeaver is open (and database is open) while running the program. If you get the same error,
     please try to close your DBeaver if it's open.
+- Check constraints are added in initializeStudents for validation; java validation methods are not implemented.
 THANK YOU!
 ================================
 */
@@ -36,17 +37,18 @@ public class DatabaseHandler {
         }
     }
     
+    //modified createQuery according to instructions in canvas
     void initializeStudents() {
         String dropQuery = "DROP TABLE IF EXISTS Students";
         String createQuery = "CREATE TABLE Students (\n" +
                                     //changed from student_number to student_id according to columns stated in canvas
-                                    "student_id TEXT NOT NULL,\n" +
+                                    "student_id TEXT NOT NULL CHECK (student_id GLOB '[0-9][0-9][0-9][0-9]010[0-9][0-9][0-9][0-9]'),\n" +
                                     "student_fname TEXT NOT NULL,\n" +
                                     "student_mname TEXT NOT NULL,\n" + //changed to not null according to columns stated in canvas
                                     "student_lname TEXT NOT NULL,\n" +
-                                    "student_sex TEXT NOT NULL,\n" +
-                                    "student_birth TEXT NOT NULL,\n" +
-                                    "student_start INTEGER NOT NULL,\n" +
+                                    "student_sex TEXT NOT NULL CHECK (student_sex IN ('M', 'F')),\n" +
+                                    "student_birth TEXT NOT NULL CHECK (student_birth GLOB '[0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9]'),\n" +
+                                    "student_start INTEGER NOT NULL CHECK (student_start BETWEEN 0 AND 2025),\n" +
                                     "student_department TEXT NOT NULL,\n" +
                                     "student_units INTEGER NOT NULL,\n" +
                                     "student_address TEXT,\n" +
