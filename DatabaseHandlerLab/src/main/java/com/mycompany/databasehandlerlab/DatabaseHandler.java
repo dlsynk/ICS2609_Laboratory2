@@ -324,7 +324,7 @@ public class DatabaseHandler {
     }
     
     public static void main(String[] args) {
-        String directPathToDb = "C:\\Users\\Niko\\Documents\\2CSD\\2ND SEM\\BACKEND\\DatabaseHandlerLab\\LaboratoryTwo";
+        String directPathToDb = "C:\\Users\\Niko\\Documents\\2CSD\\2ND SEM\\BACKEND\\DatabaseHandlerLab\\students";
         DatabaseHandler jdbc = new DatabaseHandler("root", "root", directPathToDb);
         
         System.out.println("Initialize Student table? (If the table exists, this will reset the records inside.)\nY - Yes\nN - No");
